@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE routes PUBLIC "-//Liferay//DTD Friendly URL Routes 7.4.0//EN" "http://www.liferay.com/dtd/liferay-friendly-url-routes_7_4_0.dtd">
+
+<routes>
+
+	<route>
+		<pattern>/{slug:[a-z0-9]+(?:-[a-z0-9]+)*}/preview</pattern>
+		<implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
+		<implicit-parameter name="p_p_state">normal</implicit-parameter>
+		<implicit-parameter name="preview">1</implicit-parameter>
+	</route>
+	<route>
+		<pattern>/{slug:[a-z0-9]+(?:-[a-z0-9]+)*}</pattern>
+		<implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
+		<implicit-parameter name="p_p_state">normal</implicit-parameter>
+	</route>
+</routes>

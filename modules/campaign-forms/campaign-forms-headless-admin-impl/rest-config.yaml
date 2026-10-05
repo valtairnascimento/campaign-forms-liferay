@@ -1,0 +1,10 @@
+apiDir: "../campaign-forms-headless-admin-api/src/main/java"
+apiPackagePath: "io.github.valtairnascimento.campaignforms.headless.admin"
+application:
+    baseURI: "/campaign-forms-admin"
+    className: "CampaignFormsAdminApplication"
+    name: "CampaignForms.Admin"
+author: "Valtair Nascimento"
+compatibilityVersion: 2
+generateGraphQL: false
+generateBatch: false

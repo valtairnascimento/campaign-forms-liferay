@@ -1,0 +1,544 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds" mvcc-enabled="true" package-path="io.github.valtairnascimento.campaignforms">
+	<author>Valtair Nascimento</author>
+	<namespace>CF</namespace>
+
+	<entity external-reference-code="group" local-service="true" name="Campaign" remote-service="true" uuid="true">
+		<column name="campaignId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+		<column name="slug" type="String" />
+		<column name="mode" type="String" />
+		<column name="status" type="String" />
+		<column name="startDate" type="Date" />
+		<column name="endDate" type="Date" />
+		<column name="submissionLimit" type="int" />
+		<column name="seriesKey" type="String" />
+		<column name="instanceKey" type="String" />
+		<column name="sourceCampaignId" type="long" />
+		<column name="retentionDays" type="int" />
+		<column name="defaultLanguageId" type="String" />
+		<column name="publishedDate" type="Date" />
+		<column name="publishedByUserId" type="long" />
+		<column name="settings" type="String" />
+
+		<order by="desc">
+			<order-column name="modifiedDate" />
+		</order>
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="G_S" return-type="Campaign" unique="true">
+			<finder-column name="groupId" />
+			<finder-column name="slug" />
+		</finder>
+		<finder name="G_St" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="status" />
+		</finder>
+		<finder name="C_SK" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="seriesKey" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="CampaignQuota" remote-service="false">
+		<column name="campaignId" primary="true" type="long" />
+
+		<column name="companyId" type="long" />
+		<column name="used" type="int" />
+	</entity>
+
+	<entity local-service="true" name="Form" remote-service="true">
+		<column name="formId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="campaignId" type="long" />
+		<column name="formKey" type="String" />
+		<column name="name" type="String" />
+		<column name="draftVersionId" type="long" />
+		<column name="publishedVersionId" type="long" />
+
+		<finder name="CampaignId" return-type="Collection">
+			<finder-column name="campaignId" />
+		</finder>
+		<finder name="C_FK" return-type="Form" unique="true">
+			<finder-column name="campaignId" />
+			<finder-column name="formKey" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="FormVersion" remote-service="false">
+		<column name="formVersionId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="formId" type="long" />
+		<column name="version" type="int" />
+		<column name="status" type="String" />
+		<column name="submitLabel" type="String" />
+		<column name="successTitle" type="String" />
+		<column name="successMessage" type="String" />
+		<column name="redirectUrl" type="String" />
+		<column name="captchaEnabled" type="boolean" />
+		<column name="requireAuthentication" type="boolean" />
+		<column name="consentRequired" type="boolean" />
+		<column name="consentText" type="String" />
+		<column name="consentVersion" type="String" />
+		<column name="consentURL" type="String" />
+		<column name="saveIncompleteSubmission" type="boolean" />
+		<column name="settings" type="String" />
+		<column name="publishedDate" type="Date" />
+		<column name="publishedByUserId" type="long" />
+
+		<order by="desc">
+			<order-column name="version" />
+		</order>
+
+		<finder name="FormId" return-type="Collection">
+			<finder-column name="formId" />
+		</finder>
+		<finder name="F_V" return-type="FormVersion" unique="true">
+			<finder-column name="formId" />
+			<finder-column name="version" />
+		</finder>
+		<finder name="F_S" return-type="Collection">
+			<finder-column name="formId" />
+			<finder-column name="status" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="FormField" remote-service="false">
+		<column name="formFieldId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="formVersionId" type="long" />
+		<column name="fieldKey" type="String" />
+		<column name="type" type="String" />
+		<column name="label" type="String" />
+		<column name="placeholder" type="String" />
+		<column name="helpText" type="String" />
+		<column name="required" type="boolean" />
+		<column name="position" type="int" />
+		<column name="defaultValue" type="String" />
+		<column name="width" type="String" />
+		<column name="validation" type="String" />
+		<column name="properties" type="String" />
+		<column name="conditionalRule" type="String" />
+		<column name="presetKey" type="String" />
+		<column name="personalData" type="boolean" />
+
+		<order by="asc">
+			<order-column name="position" />
+		</order>
+
+		<finder name="FormVersionId" return-type="Collection">
+			<finder-column name="formVersionId" />
+		</finder>
+		<finder name="FV_FK" return-type="FormField" unique="true">
+			<finder-column name="formVersionId" />
+			<finder-column name="fieldKey" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="FormFieldOption" remote-service="false">
+		<column name="formFieldOptionId" primary="true" type="long" />
+
+		<column name="companyId" type="long" />
+
+		<column name="formFieldId" type="long" />
+		<column name="label" type="String" />
+		<column name="value" type="String" />
+		<column name="position" type="int" />
+
+		<order by="asc">
+			<order-column name="position" />
+		</order>
+
+		<finder name="FormFieldId" return-type="Collection">
+			<finder-column name="formFieldId" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="Submission" remote-service="true" uuid="true">
+		<column name="submissionId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="campaignId" type="long" />
+		<column name="formId" type="long" />
+		<column name="formVersionId" type="long" />
+		<column name="status" type="String" />
+		<column name="sourceUrl" type="String" />
+		<column name="referrer" type="String" />
+		<column name="userAgent" type="String" />
+		<column name="languageId" type="String" />
+		<column name="ipHash" type="String" />
+		<column name="utmSource" type="String" />
+		<column name="utmMedium" type="String" />
+		<column name="utmCampaign" type="String" />
+		<column name="utmContent" type="String" />
+		<column name="utmTerm" type="String" />
+		<column name="consentVersion" type="String" />
+		<column name="consentDate" type="Date" />
+		<column name="idempotencyKey" type="String" />
+		<column name="metadata" type="String" />
+		<column name="payloadSnapshot" type="String" />
+
+		<order by="desc">
+			<order-column name="createDate" />
+		</order>
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="CampaignId" return-type="Collection">
+			<finder-column name="campaignId" />
+		</finder>
+		<finder name="C_S" return-type="Collection">
+			<finder-column name="campaignId" />
+			<finder-column name="status" />
+		</finder>
+		<finder name="FormVersionId" return-type="Collection">
+			<finder-column name="formVersionId" />
+		</finder>
+		<finder name="C_IK" return-type="Submission" unique="true">
+			<finder-column name="campaignId" />
+			<finder-column name="idempotencyKey" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="SubmissionValue" remote-service="false">
+		<column name="submissionValueId" primary="true" type="long" />
+
+		<column name="companyId" type="long" />
+
+		<column name="campaignId" type="long" />
+		<column name="submissionId" type="long" />
+		<column name="formFieldId" type="long" />
+		<column name="fieldKey" type="String" />
+		<column name="valueType" type="String" />
+		<column name="valueIndex" type="int" />
+		<column name="stringValue" type="String" />
+		<column name="textValue" type="String" />
+		<column name="numberValue" type="BigDecimal" />
+		<column name="dateValue" type="Date" />
+		<column name="booleanValue" type="boolean" />
+
+		<order by="asc">
+			<order-column name="submissionValueId" />
+		</order>
+
+		<finder name="SubmissionId" return-type="Collection">
+			<finder-column name="submissionId" />
+		</finder>
+		<finder name="C_FK_SV" return-type="Collection">
+			<finder-column name="campaignId" />
+			<finder-column name="fieldKey" />
+			<finder-column name="stringValue" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="PageConfiguration" remote-service="true">
+		<column name="pageConfigurationId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="campaignId" type="long" />
+		<column name="stage" type="String" />
+		<column name="templateKey" type="String" />
+		<column name="themeKey" type="String" />
+		<column name="cssClass" type="String" />
+		<column name="seoTitle" type="String" />
+		<column name="seoDescription" type="String" />
+		<column name="canonicalUrl" type="String" />
+		<column name="noIndex" type="boolean" />
+		<column name="ogTitle" type="String" />
+		<column name="ogDescription" type="String" />
+		<column name="ogImageFileEntryId" type="long" />
+		<column name="settings" type="String" />
+
+		<finder name="CampaignId" return-type="Collection">
+			<finder-column name="campaignId" />
+		</finder>
+		<finder name="C_S" return-type="PageConfiguration" unique="true">
+			<finder-column name="campaignId" />
+			<finder-column name="stage" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="PageBlock" remote-service="false">
+		<column name="pageBlockId" primary="true" type="long" />
+
+		<column name="companyId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="pageConfigurationId" type="long" />
+		<column name="blockType" type="String" />
+		<column name="blockKey" type="String" />
+		<column name="position" type="int" />
+		<column name="enabled" type="boolean" />
+		<column name="schemaVersion" type="int" />
+		<column name="configuration" type="String" />
+
+		<order by="asc">
+			<order-column name="position" />
+		</order>
+
+		<finder name="PageConfigurationId" return-type="Collection">
+			<finder-column name="pageConfigurationId" />
+		</finder>
+		<finder name="PC_BK" return-type="PageBlock" unique="true">
+			<finder-column name="pageConfigurationId" />
+			<finder-column name="blockKey" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="PageTemplate" remote-service="true" uuid="true">
+		<column name="pageTemplateId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="templateKey" type="String" />
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+		<column name="systemTemplate" type="boolean" />
+		<column name="blocks" type="String" />
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="G_TK" return-type="PageTemplate" unique="true">
+			<finder-column name="groupId" />
+			<finder-column name="templateKey" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="NotificationConfig" remote-service="true">
+		<column name="notificationConfigId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="campaignId" type="long" />
+		<column name="name" type="String" />
+		<column name="eventType" type="String" />
+		<column name="channel" type="String" />
+		<column name="enabled" type="boolean" />
+		<column name="recipients" type="String" />
+		<column name="cc" type="String" />
+		<column name="bcc" type="String" />
+		<column name="fromName" type="String" />
+		<column name="replyTo" type="String" />
+		<column name="subjectTemplate" type="String" />
+		<column name="bodyTemplate" type="String" />
+		<column name="settings" type="String" />
+
+		<finder name="CampaignId" return-type="Collection">
+			<finder-column name="campaignId" />
+		</finder>
+		<finder name="C_ET" return-type="Collection">
+			<finder-column name="campaignId" />
+			<finder-column name="eventType" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="IntegrationConfig" remote-service="true">
+		<column name="integrationConfigId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="campaignId" type="long" />
+		<column name="providerKey" type="String" />
+		<column name="name" type="String" />
+		<column name="enabled" type="boolean" />
+		<column name="eventTypes" type="String" />
+		<column name="settings" type="String" />
+		<column name="encryptedSecrets" type="String" />
+
+		<finder name="CampaignId" return-type="Collection">
+			<finder-column name="campaignId" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="EventDelivery" remote-service="false">
+		<column name="eventDeliveryId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="campaignId" type="long" />
+		<column name="submissionId" type="long" />
+		<column name="eventType" type="String" />
+		<column name="targetType" type="String" />
+		<column name="targetId" type="long" />
+		<column name="status" type="String" />
+		<column name="attempts" type="int" />
+		<column name="nextAttemptDate" type="Date" />
+		<column name="lastErrorCode" type="String" />
+		<column name="lastErrorMessage" type="String" />
+
+		<order by="asc">
+			<order-column name="eventDeliveryId" />
+		</order>
+
+		<finder name="SubmissionId" return-type="Collection">
+			<finder-column name="submissionId" />
+		</finder>
+		<finder name="CampaignId" return-type="Collection">
+			<finder-column name="campaignId" />
+		</finder>
+		<finder name="S_LtNAD" return-type="Collection">
+			<finder-column name="status" />
+			<finder-column comparator="&lt;=" name="nextAttemptDate" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="AuditEntry" remote-service="true">
+		<column name="auditEntryId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+
+		<column name="campaignId" type="long" />
+		<column name="action" type="String" />
+		<column name="className" type="String" />
+		<column name="classPK" type="long" />
+		<column name="details" type="String" />
+
+		<order by="desc">
+			<order-column name="createDate" />
+			<order-column name="auditEntryId" />
+		</order>
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="CampaignId" return-type="Collection">
+			<finder-column name="campaignId" />
+		</finder>
+	</entity>
+
+	<entity local-service="true" name="DataFeed" remote-service="true">
+		<column name="dataFeedId" primary="true" type="long" />
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<column name="feedKey" type="String" />
+		<column name="tokenHash" type="String" />
+		<column name="tokenHint" type="String" />
+		<column name="name" type="String" />
+		<column name="campaignId" type="long" />
+		<column name="seriesKey" type="String" />
+		<column name="format" type="String" />
+		<column name="includeMetadata" type="boolean" />
+		<column name="expirationDate" type="Date" />
+		<column name="lastAccessDate" type="Date" />
+		<column name="active" type="boolean" />
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="CampaignId" return-type="Collection">
+			<finder-column name="campaignId" />
+		</finder>
+		<finder name="FeedKey" return-type="DataFeed" unique="true">
+			<finder-column name="feedKey" />
+		</finder>
+	</entity>
+
+	<exceptions>
+		<exception>CampaignDates</exception>
+		<exception>CampaignHasSubmissions</exception>
+		<exception>CampaignInactive</exception>
+		<exception>CampaignName</exception>
+		<exception>CampaignPublication</exception>
+		<exception>CampaignSettings</exception>
+		<exception>CampaignSlug</exception>
+		<exception>CampaignStatus</exception>
+		<exception>DataFeedConfiguration</exception>
+		<exception>DuplicateFieldKey</exception>
+		<exception>DuplicateSlug</exception>
+		<exception>FieldKey</exception>
+		<exception>FormFieldConfiguration</exception>
+		<exception>FormKey</exception>
+		<exception>FormToken</exception>
+		<exception>FormValidation</exception>
+		<exception>FormVersionLocked</exception>
+		<exception>FormVersionSettings</exception>
+		<exception>IntegrationConfiguration</exception>
+		<exception>IntegrationExecution</exception>
+		<exception>InvalidField</exception>
+		<exception>NotificationConfig</exception>
+		<exception>PageBlockConfiguration</exception>
+		<exception>PageSettings</exception>
+		<exception>PageTemplateConfiguration</exception>
+		<exception>SubmissionLimitReached</exception>
+		<exception>UnauthorizedCampaignAccess</exception>
+	</exceptions>
+</service-builder>

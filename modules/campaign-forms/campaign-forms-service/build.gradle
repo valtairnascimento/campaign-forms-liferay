@@ -1,0 +1,22 @@
+dependencies {
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+	compileOnly project(":modules:campaign-forms:campaign-forms-api")
+
+	compileOnly group: "com.sun.mail", name: "jakarta.mail", version: "1.6.7"
+
+	serviceBuilder group: "com.liferay", name: "com.liferay.portal.tools.service.builder", version: "1.0.450"
+
+	testImplementation group: "com.liferay.portal", name: "release.portal.api"
+	testImplementation project(":modules:campaign-forms:campaign-forms-api")
+	testImplementation group: "junit", name: "junit", version: "4.13.2"
+}
+
+configurations.serviceBuilder {
+	resolutionStrategy.force "com.liferay:com.liferay.portal.tools.service.builder:1.0.450"
+}
+
+buildService {
+	apiDir = "../campaign-forms-api/src/main/java"
+}
+
+group = "io.github.valtairnascimento.campaignforms"

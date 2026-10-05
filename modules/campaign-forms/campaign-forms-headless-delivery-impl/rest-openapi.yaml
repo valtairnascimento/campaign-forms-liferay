@@ -1,0 +1,600 @@
+components:
+    schemas:
+        ErrorResponse:
+            description:
+                "Error format for all operations. `errorId` appears only
+                on unexpected errors (500) and matches the ID written to the log."
+            properties:
+                code:
+                    description:
+                        "Stable code: CAMPAIGN_NOT_FOUND, CAMPAIGN_CLOSED,
+                        LIMIT_REACHED, FORM_VALIDATION_ERROR, UNKNOWN_FIELD,
+                        INVALID_FORM_TOKEN, INVALID_REQUEST,
+                        AUTHENTICATION_REQUIRED, INTERNAL_ERROR..."
+                    example: FORM_VALIDATION_ERROR
+                    type: string
+                errorId:
+                    type: string
+                errors:
+                    description:
+                        "One item per problem: `field` (fieldKey, `consent` or
+                        `captcha`), `code` (REQUIRED, INVALID_EMAIL,
+                        INVALID_OPTION, TOO_LONG...) and `message`."
+                    items:
+                        additionalProperties:
+                            type: string
+                        type: object
+                    type: array
+                message:
+                    description: "Message in the language of the request."
+                    type: string
+            type: object
+        PublicCampaign:
+            description:
+                "Published campaign with everything needed to render it in a
+                single request. Does not include recipients, integrations,
+                internal settings or user IDs."
+            properties:
+                acceptingSubmissions:
+                    description:
+                        "False when the campaign is archived, outside its
+                        submission period or full."
+                    readOnly: true
+                    type: boolean
+                campaignId:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                closedMessage:
+                    description:
+                        "Message to display when `acceptingSubmissions` is
+                        false."
+                    readOnly: true
+                    type: string
+                defaultLanguageId:
+                    readOnly: true
+                    type: string
+                description:
+                    readOnly: true
+                    type: string
+                form:
+                    $ref: "#/components/schemas/PublicForm"
+                mode:
+                    enum: [QUICK, CUSTOM_PAGE]
+                    readOnly: true
+                    type: string
+                name:
+                    readOnly: true
+                    type: string
+                page:
+                    $ref: "#/components/schemas/PublicPage"
+                slug:
+                    readOnly: true
+                    type: string
+            type: object
+        Option:
+            properties:
+                label:
+                    readOnly: true
+                    type: string
+                value:
+                    description: "The value to submit, which is also the stored value."
+                    readOnly: true
+                    type: string
+            type: object
+        PublicForm:
+            description:
+                "Published form version. `formToken` and
+                `honeypotFieldName` must be sent with the submission."
+            properties:
+                captchaEnabled:
+                    readOnly: true
+                    type: boolean
+                consentRequired:
+                    readOnly: true
+                    type: boolean
+                consentText:
+                    readOnly: true
+                    type: string
+                consentURL:
+                    description: "Link to the privacy policy."
+                    readOnly: true
+                    type: string
+                consentVersion:
+                    description: "Consent version to send in `consent.version`."
+                    readOnly: true
+                    type: string
+                fields:
+                    items:
+                        $ref: "#/components/schemas/Field"
+                    readOnly: true
+                    type: array
+                formId:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                formToken:
+                    description:
+                        "Signed token, valid from 2 seconds to 24 hours after
+                        it is issued."
+                    readOnly: true
+                    type: string
+                honeypotFieldName:
+                    description:
+                        "Name of the hidden anti-spam field. Its value goes in
+                        `honeypot` in the submission and must be empty."
+                    readOnly: true
+                    type: string
+                redirectUrl:
+                    readOnly: true
+                    type: string
+                requireAuthentication:
+                    readOnly: true
+                    type: boolean
+                submitLabel:
+                    readOnly: true
+                    type: string
+                successMessage:
+                    readOnly: true
+                    type: string
+                successTitle:
+                    readOnly: true
+                    type: string
+                version:
+                    format: int32
+                    readOnly: true
+                    type: integer
+            type: object
+        Field:
+            properties:
+                defaultValue:
+                    readOnly: true
+                    type: string
+                fieldKey:
+                    description: "Key of the value in the submission (`values`)."
+                    readOnly: true
+                    type: string
+                helpText:
+                    readOnly: true
+                    type: string
+                label:
+                    readOnly: true
+                    type: string
+                multiValued:
+                    description: "True when the value is a list."
+                    readOnly: true
+                    type: boolean
+                options:
+                    items:
+                        $ref: "#/components/schemas/Option"
+                    readOnly: true
+                    type: array
+                placeholder:
+                    readOnly: true
+                    type: string
+                properties:
+                    additionalProperties:
+                        type: object
+                    description: "E.g. `autocomplete`."
+                    readOnly: true
+                    type: object
+                required:
+                    readOnly: true
+                    type: boolean
+                type:
+                    description:
+                        "text, textarea, email, tel, number, select,
+                        multiSelect, radio, checkbox, boolean, date, datetime,
+                        hidden."
+                    readOnly: true
+                    type: string
+                validation:
+                    additionalProperties:
+                        type: object
+                    description:
+                        "Rules for validating in the browser as well: minLength,
+                        maxLength, pattern, min, max, integer, minSelected,
+                        maxSelected."
+                    readOnly: true
+                    type: object
+                width:
+                    enum: [FULL, HALF, THIRD]
+                    readOnly: true
+                    type: string
+            type: object
+        PublicPage:
+            description: "Published page: SEO and enabled blocks, in order."
+            properties:
+                blocks:
+                    items:
+                        $ref: "#/components/schemas/Block"
+                    readOnly: true
+                    type: array
+                canonicalUrl:
+                    readOnly: true
+                    type: string
+                cssClass:
+                    readOnly: true
+                    type: string
+                noIndex:
+                    readOnly: true
+                    type: boolean
+                ogDescription:
+                    readOnly: true
+                    type: string
+                ogTitle:
+                    readOnly: true
+                    type: string
+                seoDescription:
+                    readOnly: true
+                    type: string
+                seoTitle:
+                    readOnly: true
+                    type: string
+                templateKey:
+                    readOnly: true
+                    type: string
+                themeKey:
+                    readOnly: true
+                    type: string
+            type: object
+        Block:
+            properties:
+                blockKey:
+                    description: "Stable anchor of the block (e.g. `form`)."
+                    readOnly: true
+                    type: string
+                blockType:
+                    readOnly: true
+                    type: string
+                configuration:
+                    additionalProperties:
+                        type: object
+                    readOnly: true
+                    type: object
+                schemaVersion:
+                    format: int32
+                    readOnly: true
+                    type: integer
+            type: object
+        SubmissionConsent:
+            properties:
+                accepted:
+                    type: boolean
+                version:
+                    description: "The `consentVersion` of the displayed form."
+                    type: string
+            type: object
+        SubmissionReceipt:
+            description: "Response to an accepted submission."
+            properties:
+                message:
+                    type: string
+                redirectUrl:
+                    type: string
+                submissionId:
+                    format: int64
+                    type: integer
+                success:
+                    type: boolean
+                title:
+                    type: string
+            type: object
+        SubmissionRequest:
+            description:
+                "A form submission. Keys in `values` that are not fields of
+                the form are rejected (400)."
+            properties:
+                captchaToken:
+                    type: string
+                consent:
+                    $ref: "#/components/schemas/SubmissionConsent"
+                formToken:
+                    description: "The `formToken` received with the form."
+                    type: string
+                honeypot:
+                    description: "Value of the `honeypotFieldName` field."
+                    type: string
+                source:
+                    $ref: "#/components/schemas/SubmissionSource"
+                values:
+                    additionalProperties:
+                        type: object
+                    description:
+                        "Values by `fieldKey`: text, or a list of texts for
+                        `multiValued` fields."
+                    example:
+                        email: maria@empresa.com.br
+                        interesses: [inovacao, gestao]
+                        nome: Maria Silva
+                    type: object
+            type: object
+        SubmissionSource:
+            description:
+                "Submission source. URL query strings are not stored."
+            properties:
+                referrer:
+                    type: string
+                sourceUrl:
+                    type: string
+                utmCampaign:
+                    type: string
+                utmContent:
+                    type: string
+                utmMedium:
+                    type: string
+                utmSource:
+                    type: string
+                utmTerm:
+                    type: string
+            type: object
+info:
+    description:
+        "Campaign Forms public API: rendering and submission of
+        published campaign forms. Accessible without signing in (Service
+        Access Policy CAMPAIGN_FORMS_DELIVERY). Draft campaigns return
+        404."
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    title: "Campaign Forms"
+    version: v1.0
+openapi: 3.0.1
+paths:
+    "/data-feeds/{feedKey}/submissions":
+        get:
+            description:
+                "Read-only submissions for Power BI (Get Data › Web).
+                Authenticated by the feed token, in the X-Feed-Token header or the
+                token parameter. CSV returns all submissions; JSON is paginated
+                by afterId (nextAfterId). modifiedSince enables incremental
+                refresh."
+            operationId: getDataFeedSubmissions
+            parameters:
+                - in: path
+                  name: feedKey
+                  required: true
+                  schema:
+                      type: string
+                - in: query
+                  name: format
+                  schema:
+                      enum: [csv, json]
+                      type: string
+                - in: query
+                  name: token
+                  schema:
+                      type: string
+                - in: query
+                  name: modifiedSince
+                  schema:
+                      format: date-time
+                      type: string
+                - in: query
+                  name: afterId
+                  schema:
+                      format: int64
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/octet-stream:
+                            schema:
+                                format: binary
+                                type: string
+                    description: "The submissions, as CSV or JSON."
+                401:
+                    description:
+                        "Invalid token, or revoked or expired feed
+                        (AUTHENTICATION_REQUIRED)."
+            tags: ["DataFeedSubmission"]
+    "/sites/{siteId}/campaigns/by-slug/{slug}":
+        get:
+            description:
+                "The published campaign, with its form and page."
+            operationId: getSiteCampaignBySlug
+            parameters:
+                - in: path
+                  name: siteId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+                - in: path
+                  name: slug
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PublicCampaign"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PublicCampaign"
+                    description: "The campaign."
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                    description: "Not found or not published."
+            tags: ["PublicCampaign"]
+    "/sites/{siteId}/campaigns/by-slug/{slug}/form":
+        get:
+            description: "The published form of the campaign."
+            operationId: getSiteCampaignBySlugForm
+            parameters:
+                - in: path
+                  name: siteId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+                - in: path
+                  name: slug
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PublicForm"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PublicForm"
+                    description: "The form."
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                    description: "Not found or not published."
+            tags: ["PublicForm"]
+    "/sites/{siteId}/campaigns/by-slug/{slug}/page":
+        get:
+            description: "The published page of the campaign."
+            operationId: getSiteCampaignBySlugPage
+            parameters:
+                - in: path
+                  name: siteId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+                - in: path
+                  name: slug
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PublicPage"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PublicPage"
+                    description: "The page."
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                    description: "Not found or not published."
+            tags: ["PublicPage"]
+    "/sites/{siteId}/campaigns/by-slug/{slug}/submissions":
+        post:
+            description:
+                "Submits a response. Repeating the request with the same
+                `Idempotency-Key` header returns the original response without
+                storing it again."
+            operationId: postSiteCampaignBySlugSubmission
+            parameters:
+                - in: path
+                  name: siteId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+                - in: path
+                  name: slug
+                  required: true
+                  schema:
+                      type: string
+                - description:
+                      "Unique identifier of the submission (a UUID generated when the
+                      form is loaded)."
+                  in: header
+                  name: Idempotency-Key
+                  schema:
+                      type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/SubmissionRequest"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/SubmissionRequest"
+                required: true
+            responses:
+                201:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/SubmissionReceipt"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/SubmissionReceipt"
+                    description: "Submission accepted."
+                400:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                    description:
+                        "Invalid JSON, unknown field (UNKNOWN_FIELD) or
+                        invalid/expired formToken (INVALID_FORM_TOKEN)."
+                401:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                    description: "The form requires signing in."
+                404:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                    description: "Campaign not found or not published."
+                409:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                    description:
+                        "Campaign closed (CAMPAIGN_CLOSED) or full
+                        (LIMIT_REACHED)."
+                422:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                    description:
+                        "Invalid fields (FORM_VALIDATION_ERROR), with all the
+                        errors in `errors`."
+            tags: ["SubmissionReceipt"]

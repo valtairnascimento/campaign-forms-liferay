@@ -1,0 +1,32 @@
+{
+	"name": "campaign-forms-admin",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Admin das captações (Campaign Forms): React 18 empacotado com Vite no módulo campaign-forms-web.",
+	"type": "module",
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite build --watch --mode development",
+		"e2e": "node e2e/quick-campaign.e2e.mjs && node e2e/custom-page.e2e.mjs",
+		"test": "vitest run && node --test ../../../test/js/campaign-form.test.js",
+		"e2e:custom": "node e2e/custom-page.e2e.mjs",
+		"e2e:quick": "node e2e/quick-campaign.e2e.mjs"
+	},
+	"dependencies": {
+		"react": "18.3.1",
+		"react-dom": "18.3.1"
+	},
+	"devDependencies": {
+		"@testing-library/dom": "10.4.0",
+		"@testing-library/react": "16.1.0",
+		"@testing-library/user-event": "14.5.2",
+		"@vitejs/plugin-react": "4.3.4",
+		"jsdom": "25.0.1",
+		"playwright-core": "1.49.1",
+		"vite": "5.4.21",
+		"vitest": "2.1.8"
+	},
+	"engines": {
+		"node": ">=18"
+	}
+}

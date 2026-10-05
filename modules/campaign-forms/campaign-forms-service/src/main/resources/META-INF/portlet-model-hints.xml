@@ -1,0 +1,504 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="io.github.valtairnascimento.campaignforms.model.AuditEntry">
+		<field name="mvccVersion" type="long" />
+		<field name="auditEntryId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="campaignId" type="long" />
+		<field name="action" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="className" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="classPK" type="long" />
+		<field name="details" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.Campaign">
+		<field name="mvccVersion" type="long" />
+		<field name="uuid" type="String" />
+		<field name="externalReferenceCode" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="campaignId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="name" type="String">
+			<hint name="max-length">150</hint>
+		</field>
+		<field name="description" type="String">
+			<hint name="max-length">4000</hint>
+		</field>
+		<field name="slug" type="String">
+			<hint name="max-length">150</hint>
+		</field>
+		<field name="mode" type="String">
+			<hint name="max-length">20</hint>
+		</field>
+		<field name="status" type="String">
+			<hint name="max-length">20</hint>
+		</field>
+		<field name="startDate" type="Date" />
+		<field name="endDate" type="Date" />
+		<field name="submissionLimit" type="int" />
+		<field name="seriesKey" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="instanceKey" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="sourceCampaignId" type="long" />
+		<field name="retentionDays" type="int" />
+		<field name="defaultLanguageId" type="String">
+			<hint name="max-length">10</hint>
+		</field>
+		<field name="publishedDate" type="Date" />
+		<field name="publishedByUserId" type="long" />
+		<field name="settings" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.CampaignQuota">
+		<field name="mvccVersion" type="long" />
+		<field name="campaignId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="used" type="int" />
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.DataFeed">
+		<field name="mvccVersion" type="long" />
+		<field name="dataFeedId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="feedKey" type="String">
+			<hint name="max-length">64</hint>
+		</field>
+		<field name="tokenHash" type="String">
+			<hint name="max-length">64</hint>
+		</field>
+		<field name="tokenHint" type="String">
+			<hint name="max-length">8</hint>
+		</field>
+		<field name="name" type="String">
+			<hint name="max-length">150</hint>
+		</field>
+		<field name="campaignId" type="long" />
+		<field name="seriesKey" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="format" type="String">
+			<hint name="max-length">10</hint>
+		</field>
+		<field name="includeMetadata" type="boolean" />
+		<field name="expirationDate" type="Date" />
+		<field name="lastAccessDate" type="Date" />
+		<field name="active" type="boolean" />
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.EventDelivery">
+		<field name="mvccVersion" type="long" />
+		<field name="eventDeliveryId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="campaignId" type="long" />
+		<field name="submissionId" type="long" />
+		<field name="eventType" type="String">
+			<hint name="max-length">50</hint>
+		</field>
+		<field name="targetType" type="String">
+			<hint name="max-length">30</hint>
+		</field>
+		<field name="targetId" type="long" />
+		<field name="status" type="String">
+			<hint name="max-length">20</hint>
+		</field>
+		<field name="attempts" type="int" />
+		<field name="nextAttemptDate" type="Date" />
+		<field name="lastErrorCode" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="lastErrorMessage" type="String">
+			<hint name="max-length">1000</hint>
+		</field>
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.Form">
+		<field name="mvccVersion" type="long" />
+		<field name="formId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="campaignId" type="long" />
+		<field name="formKey" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="name" type="String">
+			<hint name="max-length">150</hint>
+		</field>
+		<field name="draftVersionId" type="long" />
+		<field name="publishedVersionId" type="long" />
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.FormField">
+		<field name="mvccVersion" type="long" />
+		<field name="formFieldId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="formVersionId" type="long" />
+		<field name="fieldKey" type="String">
+			<hint name="max-length">50</hint>
+		</field>
+		<field name="type" type="String">
+			<hint name="max-length">30</hint>
+		</field>
+		<field name="label" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="placeholder" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="helpText" type="String">
+			<hint name="max-length">1000</hint>
+		</field>
+		<field name="required" type="boolean" />
+		<field name="position" type="int" />
+		<field name="defaultValue" type="String">
+			<hint name="max-length">1000</hint>
+		</field>
+		<field name="width" type="String">
+			<hint name="max-length">10</hint>
+		</field>
+		<field name="validation" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="properties" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="conditionalRule" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="presetKey" type="String">
+			<hint name="max-length">50</hint>
+		</field>
+		<field name="personalData" type="boolean" />
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.FormFieldOption">
+		<field name="mvccVersion" type="long" />
+		<field name="formFieldOptionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="formFieldId" type="long" />
+		<field name="label" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="value" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="position" type="int" />
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.FormVersion">
+		<field name="mvccVersion" type="long" />
+		<field name="formVersionId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="formId" type="long" />
+		<field name="version" type="int" />
+		<field name="status" type="String">
+			<hint name="max-length">20</hint>
+		</field>
+		<field name="submitLabel" type="String">
+			<hint name="max-length">150</hint>
+		</field>
+		<field name="successTitle" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="successMessage" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="redirectUrl" type="String">
+			<hint name="max-length">2048</hint>
+		</field>
+		<field name="captchaEnabled" type="boolean" />
+		<field name="requireAuthentication" type="boolean" />
+		<field name="consentRequired" type="boolean" />
+		<field name="consentText" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="consentVersion" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="consentURL" type="String">
+			<hint name="max-length">2048</hint>
+		</field>
+		<field name="saveIncompleteSubmission" type="boolean" />
+		<field name="settings" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="publishedDate" type="Date" />
+		<field name="publishedByUserId" type="long" />
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.IntegrationConfig">
+		<field name="mvccVersion" type="long" />
+		<field name="integrationConfigId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="campaignId" type="long" />
+		<field name="providerKey" type="String">
+			<hint name="max-length">50</hint>
+		</field>
+		<field name="name" type="String">
+			<hint name="max-length">150</hint>
+		</field>
+		<field name="enabled" type="boolean" />
+		<field name="eventTypes" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="settings" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="encryptedSecrets" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.NotificationConfig">
+		<field name="mvccVersion" type="long" />
+		<field name="notificationConfigId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="campaignId" type="long" />
+		<field name="name" type="String">
+			<hint name="max-length">150</hint>
+		</field>
+		<field name="eventType" type="String">
+			<hint name="max-length">50</hint>
+		</field>
+		<field name="channel" type="String">
+			<hint name="max-length">30</hint>
+		</field>
+		<field name="enabled" type="boolean" />
+		<field name="recipients" type="String">
+			<hint name="max-length">2000</hint>
+		</field>
+		<field name="cc" type="String">
+			<hint name="max-length">2000</hint>
+		</field>
+		<field name="bcc" type="String">
+			<hint name="max-length">2000</hint>
+		</field>
+		<field name="fromName" type="String">
+			<hint name="max-length">150</hint>
+		</field>
+		<field name="replyTo" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="subjectTemplate" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="bodyTemplate" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="settings" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.PageBlock">
+		<field name="mvccVersion" type="long" />
+		<field name="pageBlockId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="pageConfigurationId" type="long" />
+		<field name="blockType" type="String">
+			<hint name="max-length">30</hint>
+		</field>
+		<field name="blockKey" type="String">
+			<hint name="max-length">50</hint>
+		</field>
+		<field name="position" type="int" />
+		<field name="enabled" type="boolean" />
+		<field name="schemaVersion" type="int" />
+		<field name="configuration" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.PageConfiguration">
+		<field name="mvccVersion" type="long" />
+		<field name="pageConfigurationId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="campaignId" type="long" />
+		<field name="stage" type="String">
+			<hint name="max-length">20</hint>
+		</field>
+		<field name="templateKey" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="themeKey" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="cssClass" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="seoTitle" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="seoDescription" type="String">
+			<hint name="max-length">1000</hint>
+		</field>
+		<field name="canonicalUrl" type="String">
+			<hint name="max-length">2048</hint>
+		</field>
+		<field name="noIndex" type="boolean" />
+		<field name="ogTitle" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="ogDescription" type="String">
+			<hint name="max-length">1000</hint>
+		</field>
+		<field name="ogImageFileEntryId" type="long" />
+		<field name="settings" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.PageTemplate">
+		<field name="mvccVersion" type="long" />
+		<field name="uuid" type="String" />
+		<field name="pageTemplateId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="templateKey" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="name" type="String">
+			<hint name="max-length">150</hint>
+		</field>
+		<field name="description" type="String">
+			<hint name="max-length">1000</hint>
+		</field>
+		<field name="systemTemplate" type="boolean" />
+		<field name="blocks" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.Submission">
+		<field name="mvccVersion" type="long" />
+		<field name="uuid" type="String" />
+		<field name="submissionId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="campaignId" type="long" />
+		<field name="formId" type="long" />
+		<field name="formVersionId" type="long" />
+		<field name="status" type="String">
+			<hint name="max-length">20</hint>
+		</field>
+		<field name="sourceUrl" type="String">
+			<hint name="max-length">2048</hint>
+		</field>
+		<field name="referrer" type="String">
+			<hint name="max-length">2048</hint>
+		</field>
+		<field name="userAgent" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="languageId" type="String">
+			<hint name="max-length">10</hint>
+		</field>
+		<field name="ipHash" type="String">
+			<hint name="max-length">64</hint>
+		</field>
+		<field name="utmSource" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="utmMedium" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="utmCampaign" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="utmContent" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="utmTerm" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="consentVersion" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="consentDate" type="Date" />
+		<field name="idempotencyKey" type="String">
+			<hint name="max-length">64</hint>
+		</field>
+		<field name="metadata" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="payloadSnapshot" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+	</model>
+	<model name="io.github.valtairnascimento.campaignforms.model.SubmissionValue">
+		<field name="mvccVersion" type="long" />
+		<field name="submissionValueId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="campaignId" type="long" />
+		<field name="submissionId" type="long" />
+		<field name="formFieldId" type="long" />
+		<field name="fieldKey" type="String">
+			<hint name="max-length">50</hint>
+		</field>
+		<field name="valueType" type="String">
+			<hint name="max-length">20</hint>
+		</field>
+		<field name="valueIndex" type="int" />
+		<field name="stringValue" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="textValue" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="numberValue" type="BigDecimal" />
+		<field name="dateValue" type="Date" />
+		<field name="booleanValue" type="boolean" />
+	</model>
+</model-hints>

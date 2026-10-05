@@ -1,0 +1,5 @@
+Bundle-Name: Campaign Forms Test
+Bundle-SymbolicName: io.github.valtairnascimento.campaignforms.test
+Bundle-Version: 1.0.0
+
+-noee: true

@@ -1,0 +1,19 @@
+Bundle-Name: Campaign Forms API
+Bundle-SymbolicName: io.github.valtairnascimento.campaignforms.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	io.github.valtairnascimento.campaignforms.constants,\
+	io.github.valtairnascimento.campaignforms.domain,\
+	io.github.valtairnascimento.campaignforms.exception,\
+	io.github.valtairnascimento.campaignforms.field,\
+	io.github.valtairnascimento.campaignforms.input,\
+	io.github.valtairnascimento.campaignforms.model,\
+	io.github.valtairnascimento.campaignforms.page,\
+	io.github.valtairnascimento.campaignforms.service,\
+	io.github.valtairnascimento.campaignforms.service.persistence,\
+	io.github.valtairnascimento.campaignforms.submission
+Provide-Capability:\
+	liferay.language.resources;\
+		resource.bundle.base.name="content.Language"
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../campaign-forms-service/service.xml

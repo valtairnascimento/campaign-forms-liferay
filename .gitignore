@@ -1,0 +1,16 @@
+**/*.iml
+**/.classpath
+**/.project
+**/.settings
+**/bin
+**/build
+**/dist
+**/node_modules
+**/tmp
+**/.web_bundle_build
+.gradle
+.idea
+.vscode
+/bundles
+/gradle-*.properties
+test-results

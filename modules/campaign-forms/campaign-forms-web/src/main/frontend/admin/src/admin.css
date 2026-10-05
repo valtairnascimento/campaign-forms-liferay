@@ -1,0 +1,525 @@
+.campaign-forms-admin__app {
+	padding-bottom: 2rem;
+	padding-top: 1.5rem;
+}
+
+.campaign-forms-admin__loading {
+	display: flex;
+	justify-content: center;
+	padding: 3rem 0;
+}
+
+.campaign-forms-admin__spinner {
+	margin-right: 0.5rem;
+}
+
+.campaign-forms-admin__toolbar {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-bottom: 1.5rem;
+}
+
+.campaign-forms-admin__toolbar > .btn-primary {
+	margin-left: auto;
+}
+
+.campaign-forms-admin__toolbar-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-left: auto;
+}
+
+.campaign-forms-admin__deliveries > li + li {
+	margin-top: 0.5rem;
+}
+
+.campaign-forms-admin__secret .input-group .form-control {
+	font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 0.8125rem;
+}
+
+.campaign-forms-admin__title {
+	font-size: 1.5rem;
+	margin: 0;
+}
+
+.campaign-forms-admin__subtitle {
+	align-items: center;
+	color: #6b6c7e;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.campaign-forms-admin__subtitle .label {
+	margin: 0;
+}
+
+.campaign-forms-admin__empty {
+	margin: 3rem auto;
+	max-width: 32rem;
+	text-align: center;
+}
+
+.campaign-forms-admin__actions {
+	display: inline-block;
+	position: relative;
+}
+
+.campaign-forms-admin__pagination {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1rem;
+}
+
+.campaign-forms-admin__options {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+	list-style: none;
+	margin: 1.5rem 0 0;
+	padding: 0;
+}
+
+.campaign-forms-admin__option {
+	height: 100%;
+	text-align: left;
+	width: 100%;
+}
+
+.campaign-forms-admin__option .card-body {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.campaign-forms-admin__option[disabled] {
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+.campaign-forms-admin__option-icon {
+	color: #0b5fff;
+	height: 2rem;
+	width: 2rem;
+}
+
+.campaign-forms-admin__stepper ol {
+	counter-reset: step;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.5rem;
+	list-style: none;
+	margin: 0 0 1.5rem;
+	padding: 0;
+}
+
+.campaign-forms-admin__step a,
+.campaign-forms-admin__step > span {
+	align-items: center;
+	color: #6b6c7e;
+	display: flex;
+	gap: 0.5rem;
+	text-decoration: none;
+}
+
+.campaign-forms-admin__step-number {
+	align-items: center;
+	border: 2px solid currentColor;
+	border-radius: 50%;
+	display: inline-flex;
+	font-size: 0.875rem;
+	font-weight: 600;
+	height: 1.75rem;
+	justify-content: center;
+	width: 1.75rem;
+}
+
+.campaign-forms-admin__step--done a {
+	color: #287d3c;
+}
+
+.campaign-forms-admin__step--current a,
+.campaign-forms-admin__step--current > span {
+	color: #0b5fff;
+	font-weight: 600;
+}
+
+.campaign-forms-admin__step--current .campaign-forms-admin__step-number {
+	background: #0b5fff;
+	border-color: #0b5fff;
+	color: #fff;
+}
+
+.campaign-forms-admin__step-footer {
+	border-top: 1px solid #e7e7ed;
+	display: flex;
+	gap: 0.5rem;
+	justify-content: flex-end;
+	margin-top: 2rem;
+	padding-top: 1rem;
+}
+
+.campaign-forms-admin__fields {
+	margin-bottom: 1rem;
+}
+
+.campaign-forms-admin__fields .list-group-title {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
+}
+
+.campaign-forms-admin__required {
+	margin: 0;
+}
+
+.campaign-forms-admin__field-actions {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	gap: 0.25rem;
+}
+
+.campaign-forms-admin__add-field,
+.campaign-forms-admin__presets,
+.campaign-forms-admin__placeholders,
+.campaign-forms-admin__publish-actions {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+.campaign-forms-admin__add-field {
+	align-items: flex-start;
+	flex-direction: column;
+}
+
+.campaign-forms-admin__option-row {
+	align-items: flex-start;
+	display: flex;
+	gap: 0.25rem;
+	margin-bottom: 0.5rem;
+}
+
+.campaign-forms-admin__option-label {
+	flex: 1;
+}
+
+.campaign-forms-admin__placeholder {
+	font-family: monospace;
+}
+
+.campaign-forms-admin__more {
+	margin-top: 1rem;
+}
+
+.campaign-forms-admin__more summary {
+	cursor: pointer;
+	margin-bottom: 1rem;
+}
+
+.campaign-forms-admin__issues {
+	margin: 0.5rem 0 0;
+	padding-left: 1.25rem;
+}
+
+.campaign-forms-admin__public-url {
+	display: flex;
+	gap: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.campaign-forms-admin__public-url .form-control {
+	flex: 1;
+}
+
+.campaign-forms-admin__values > div {
+	border-bottom: 1px solid #e7e7ed;
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: minmax(8rem, 1fr) 2fr;
+	padding: 0.5rem 0;
+}
+
+.campaign-forms-admin__values dt {
+	font-weight: 600;
+}
+
+.campaign-forms-admin__values dd {
+	margin: 0;
+	overflow-wrap: anywhere;
+	white-space: pre-wrap;
+}
+
+.campaign-forms-admin__modal {
+	display: block;
+	overflow-y: auto;
+}
+
+.campaign-forms-admin__toasts {
+	pointer-events: none;
+}
+
+.campaign-forms-admin__toasts .alert {
+	pointer-events: auto;
+}
+
+.campaign-forms-admin__builder {
+	align-items: start;
+	display: grid;
+	gap: 1.5rem;
+	grid-template-columns: minmax(20rem, 30rem) minmax(0, 1fr);
+}
+
+@media (max-width: 991px) {
+	.campaign-forms-admin__builder {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.campaign-forms-admin__builder .sheet {
+	margin: 0;
+	max-width: none;
+}
+
+.campaign-forms-admin__builder-preview {
+	position: sticky;
+	top: 1rem;
+}
+
+.campaign-forms-admin__blocks {
+	margin-bottom: 1rem;
+}
+
+.campaign-forms-admin__block[draggable='true'] {
+	cursor: grab;
+}
+
+.campaign-forms-admin__block--dragging {
+	opacity: 0.5;
+}
+
+.campaign-forms-admin__block--disabled .list-group-title {
+	color: #6b6c7e;
+	text-decoration: line-through;
+}
+
+.campaign-forms-admin__drag-handle {
+	color: #a7a9bc;
+}
+
+.campaign-forms-admin__add-block {
+	margin-bottom: 1.5rem;
+}
+
+.campaign-forms-admin__palette {
+	margin-top: 0.5rem;
+}
+
+.campaign-forms-admin__palette-option {
+	align-items: flex-start;
+	background: none;
+	border: 0;
+	display: flex;
+	gap: 0.75rem;
+	padding: 0;
+	text-align: left;
+	width: 100%;
+}
+
+.campaign-forms-admin__palette-option[disabled] {
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+.campaign-forms-admin__palette-option .lexicon-icon {
+	color: #0b5fff;
+	flex-shrink: 0;
+	height: 1.5rem;
+	width: 1.5rem;
+}
+
+.campaign-forms-admin__preview-header {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	justify-content: space-between;
+	margin-bottom: 1rem;
+}
+
+.campaign-forms-admin__preview-header .sheet-title {
+	margin: 0;
+}
+
+.campaign-forms-admin__preview-frame {
+	background: #fff;
+	border: 1px solid #e7e7ed;
+	border-radius: 0.25rem;
+	display: block;
+	height: 70vh;
+	width: 100%;
+}
+
+.campaign-forms-admin__preview-frame--tall {
+	height: 80vh;
+	margin: 0 auto;
+	max-width: 100%;
+	transition: width 0.2s ease;
+}
+
+.campaign-forms-admin__device-frame {
+	background: #f1f2f5;
+	border-radius: 0.25rem;
+	padding: 1rem;
+}
+
+.campaign-forms-admin__template {
+	height: 100%;
+}
+
+.campaign-forms-admin__template .card-title {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
+}
+
+.campaign-forms-admin__template-blocks {
+	color: #6b6c7e;
+	font-size: 0.875rem;
+	margin: 0 0 1rem;
+	padding-left: 1.25rem;
+}
+
+.campaign-forms-admin__markup-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	margin-bottom: 0.25rem;
+}
+
+.campaign-forms-admin__image-field .btn-group {
+	gap: 0.5rem;
+}
+
+.campaign-forms-admin__image-preview {
+	align-items: center;
+	display: flex;
+	gap: 0.75rem;
+	margin-bottom: 0.5rem;
+}
+
+.campaign-forms-admin__image-preview img {
+	border: 1px solid #e7e7ed;
+	border-radius: 0.25rem;
+	height: 4rem;
+	object-fit: cover;
+	width: 6rem;
+}
+
+.campaign-forms-admin__image-search {
+	align-items: flex-end;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.campaign-forms-admin__image-search .form-group {
+	flex: 1;
+	margin-bottom: 0;
+	min-width: 12rem;
+}
+
+.campaign-forms-admin__image-grid {
+	display: grid;
+	gap: 0.75rem;
+	grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+	list-style: none;
+	margin: 1rem 0;
+	padding: 0;
+}
+
+.campaign-forms-admin__image-option {
+	background: #fff;
+	border: 1px solid #e7e7ed;
+	border-radius: 0.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	padding: 0.25rem;
+	text-align: left;
+	width: 100%;
+}
+
+.campaign-forms-admin__image-option:hover,
+.campaign-forms-admin__image-option:focus {
+	border-color: #0b5fff;
+}
+
+.campaign-forms-admin__image-option img {
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+	width: 100%;
+}
+
+.campaign-forms-admin__image-option span {
+	font-size: 0.75rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.campaign-forms-admin__faq-item {
+	border: 1px solid #e7e7ed;
+	border-radius: 0.25rem;
+	margin-bottom: 1rem;
+	padding: 0.75rem;
+}
+
+.campaign-forms-admin__faq-item-header {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 0.5rem;
+}
+
+.campaign-forms-admin__serp {
+	border: 1px solid #e7e7ed;
+	border-radius: 0.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.125rem;
+	margin-bottom: 1.5rem;
+	max-width: 38rem;
+	padding: 0.75rem 1rem;
+}
+
+.campaign-forms-admin__serp-url {
+	color: #287d3c;
+	font-size: 0.8125rem;
+	overflow-wrap: anywhere;
+}
+
+.campaign-forms-admin__serp-title {
+	color: #1a0dab;
+	font-size: 1.125rem;
+}
+
+.campaign-forms-admin__serp-description {
+	color: #4d5156;
+	font-size: 0.875rem;
+}
+
+.campaign-forms-admin__group-label {
+	display: block;
+	font-size: 0.875rem;
+	font-weight: 600;
+	margin-bottom: 0.25rem;
+}

@@ -1,0 +1,189 @@
+.campaign-forms-form__fields {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 1rem;
+}
+
+.campaign-forms-form__field {
+	box-sizing: border-box;
+	flex: 1 1 100%;
+	min-width: 0;
+}
+
+.campaign-forms-form__field--half {
+	flex-basis: calc(50% - 0.5rem);
+}
+
+.campaign-forms-form__field--third {
+	flex-basis: calc(33.333% - 0.667rem);
+}
+
+@media (max-width: 600px) {
+	.campaign-forms-form__field--half,
+	.campaign-forms-form__field--third {
+		flex-basis: 100%;
+	}
+}
+
+.campaign-forms-form__fieldset {
+	border: 0;
+	margin-left: 0;
+	margin-right: 0;
+	min-width: 0;
+	padding: 0;
+}
+
+.campaign-forms-form__required,
+.campaign-forms-form__error {
+	color: #b00020;
+}
+
+.campaign-forms-form__field--invalid .campaign-forms-form__input {
+	border-color: #b00020;
+}
+
+.campaign-forms-form__honeypot {
+	height: 1px;
+	left: -10000px;
+	overflow: hidden;
+	position: absolute;
+	width: 1px;
+}
+
+.campaign-forms-form__status:focus,
+.campaign-forms-form__summary:focus {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+
+.campaign-forms__block {
+	margin-bottom: 2.5rem;
+}
+
+.campaign-forms__preview {
+	margin-bottom: 1.5rem;
+}
+
+.campaign-forms-hero {
+	border-radius: 0.5rem;
+	overflow: hidden;
+	padding: 3rem 1.5rem;
+	position: relative;
+}
+
+.campaign-forms-hero--brand {
+	background: var(--campaign-forms-brand, var(--primary, #0b5fff));
+	color: var(--campaign-forms-brand-contrast, #fff);
+}
+
+.campaign-forms-hero--dark {
+	background: var(--campaign-forms-dark, #272833);
+	color: #fff;
+}
+
+.campaign-forms-hero--light {
+	background: var(--campaign-forms-light, #f1f2f5);
+	color: var(--campaign-forms-light-contrast, #272833);
+}
+
+.campaign-forms-hero--center {
+	text-align: center;
+}
+
+.campaign-forms-hero__image {
+	height: 100%;
+	inset: 0;
+	object-fit: cover;
+	position: absolute;
+	width: 100%;
+}
+
+.campaign-forms-hero--image::after {
+	background: rgba(0, 0, 0, 0.55);
+	content: '';
+	inset: 0;
+	position: absolute;
+}
+
+.campaign-forms-hero--image.campaign-forms-hero--light::after {
+	background: rgba(255, 255, 255, 0.75);
+}
+
+.campaign-forms-hero__content {
+	max-width: 48rem;
+	position: relative;
+	z-index: 1;
+}
+
+.campaign-forms-hero--center .campaign-forms-hero__content {
+	margin: 0 auto;
+}
+
+.campaign-forms-hero__subtitle {
+	font-size: 1.25rem;
+	margin-bottom: 1.5rem;
+}
+
+.campaign-forms-image {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.campaign-forms-image--content .campaign-forms-image__img {
+	max-width: 48rem;
+}
+
+.campaign-forms-image__img {
+	display: block;
+	height: auto;
+	width: 100%;
+}
+
+.campaign-forms-image__caption {
+	font-size: 0.875rem;
+	margin-top: 0.5rem;
+	opacity: 0.8;
+}
+
+.campaign-forms-cta {
+	border-radius: 0.5rem;
+	padding: 2rem 1.5rem;
+}
+
+.campaign-forms-cta--brand {
+	background: var(--campaign-forms-brand, var(--primary, #0b5fff));
+	color: var(--campaign-forms-brand-contrast, #fff);
+}
+
+.campaign-forms-cta--dark {
+	background: var(--campaign-forms-dark, #272833);
+	color: #fff;
+}
+
+.campaign-forms-cta--light {
+	background: var(--campaign-forms-light, #f1f2f5);
+}
+
+.campaign-forms-hero--brand .campaign-forms__button,
+.campaign-forms-hero--dark .campaign-forms__button,
+.campaign-forms-hero--image .campaign-forms__button,
+.campaign-forms-cta--brand .campaign-forms__button,
+.campaign-forms-cta--dark .campaign-forms__button {
+	background: #fff;
+	border-color: #fff;
+	color: #272833;
+}
+
+.campaign-forms-faq__item {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+	padding: 0.75rem 0;
+}
+
+.campaign-forms-faq__question {
+	cursor: pointer;
+	font-weight: 600;
+}
+
+.campaign-forms-faq__answer {
+	padding-top: 0.5rem;
+}

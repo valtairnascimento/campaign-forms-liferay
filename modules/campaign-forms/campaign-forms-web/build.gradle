@@ -1,0 +1,37 @@
+dependencies {
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+	compileOnly project(":modules:campaign-forms:campaign-forms-api")
+}
+
+def adminDir = file("src/main/frontend/admin")
+def npmCommand = org.gradle.internal.os.OperatingSystem.current().isWindows() ? "npm.cmd" : "npm"
+
+task installAdminDependencies(type: Exec) {
+	commandLine npmCommand, "ci", "--no-audit", "--no-fund"
+	inputs.file new File(adminDir, "package-lock.json")
+	outputs.dir new File(adminDir, "node_modules")
+	workingDir adminDir
+}
+
+task buildAdmin(type: Exec) {
+	commandLine npmCommand, "run", "build"
+	dependsOn installAdminDependencies
+	inputs.dir new File(adminDir, "src")
+	inputs.files new File(adminDir, "package-lock.json"), new File(adminDir, "vite.config.js")
+	outputs.dir "${buildDir}/frontend/admin"
+	workingDir adminDir
+}
+
+task testAdmin(type: Exec) {
+	commandLine npmCommand, "test"
+	dependsOn installAdminDependencies
+	workingDir adminDir
+}
+
+processResources {
+	from(buildAdmin) {
+		into "META-INF/resources/admin"
+	}
+}
+
+test.dependsOn testAdmin

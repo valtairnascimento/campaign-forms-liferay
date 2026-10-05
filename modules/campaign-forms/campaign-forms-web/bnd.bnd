@@ -1,0 +1,8 @@
+Bundle-Name: Campaign Forms Web
+Bundle-SymbolicName: io.github.valtairnascimento.campaignforms.web
+Bundle-Version: 1.0.0
+Provide-Capability:\
+	liferay.resource.bundle;\
+		resource.bundle.base.name="content.Language"
+Web-ContextPath: /campaign-forms-web
+-dsannotations-options: inherit

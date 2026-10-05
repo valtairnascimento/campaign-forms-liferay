@@ -1,0 +1,6 @@
+Bundle-Name: Campaign Forms Headless Admin API
+Bundle-SymbolicName: io.github.valtairnascimento.campaignforms.headless.admin.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	io.github.valtairnascimento.campaignforms.headless.admin.dto.v1_0,\
+	io.github.valtairnascimento.campaignforms.headless.admin.resource.v1_0

@@ -1,0 +1,359 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package io.github.valtairnascimento.campaignforms.service.persistence;
+
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
+
+import io.github.valtairnascimento.campaignforms.exception.NoSuchPageConfigurationException;
+import io.github.valtairnascimento.campaignforms.model.PageConfiguration;
+
+import org.osgi.annotation.versioning.ProviderType;
+
+/**
+ * The persistence interface for the page configuration service.
+ *
+ * <p>
+ * Caching information and settings can be found in <code>portal.properties</code>
+ * </p>
+ *
+ * @author Valtair Nascimento
+ * @see PageConfigurationUtil
+ * @generated
+ */
+@ProviderType
+public interface PageConfigurationPersistence
+	extends BasePersistence<PageConfiguration> {
+
+	/*
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this interface directly. Always use {@link PageConfigurationUtil} to access the page configuration persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this interface.
+	 */
+
+	/**
+	 * Returns all the page configurations where campaignId = &#63;.
+	 *
+	 * @param campaignId the campaign ID
+	 * @return the matching page configurations
+	 */
+	public java.util.List<PageConfiguration> findByCampaignId(long campaignId);
+
+	/**
+	 * Returns a range of all the page configurations where campaignId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PageConfigurationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param campaignId the campaign ID
+	 * @param start the lower bound of the range of page configurations
+	 * @param end the upper bound of the range of page configurations (not inclusive)
+	 * @return the range of matching page configurations
+	 */
+	public java.util.List<PageConfiguration> findByCampaignId(
+		long campaignId, int start, int end);
+
+	/**
+	 * Returns an ordered range of all the page configurations where campaignId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PageConfigurationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param campaignId the campaign ID
+	 * @param start the lower bound of the range of page configurations
+	 * @param end the upper bound of the range of page configurations (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching page configurations
+	 */
+	public java.util.List<PageConfiguration> findByCampaignId(
+		long campaignId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<PageConfiguration>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the page configurations where campaignId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PageConfigurationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param campaignId the campaign ID
+	 * @param start the lower bound of the range of page configurations
+	 * @param end the upper bound of the range of page configurations (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of matching page configurations
+	 */
+	public java.util.List<PageConfiguration> findByCampaignId(
+		long campaignId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<PageConfiguration>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Returns the first page configuration in the ordered set where campaignId = &#63;.
+	 *
+	 * @param campaignId the campaign ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching page configuration
+	 * @throws NoSuchPageConfigurationException if a matching page configuration could not be found
+	 */
+	public PageConfiguration findByCampaignId_First(
+			long campaignId,
+			com.liferay.portal.kernel.util.OrderByComparator<PageConfiguration>
+				orderByComparator)
+		throws NoSuchPageConfigurationException;
+
+	/**
+	 * Returns the first page configuration in the ordered set where campaignId = &#63;.
+	 *
+	 * @param campaignId the campaign ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching page configuration, or <code>null</code> if a matching page configuration could not be found
+	 */
+	public PageConfiguration fetchByCampaignId_First(
+		long campaignId,
+		com.liferay.portal.kernel.util.OrderByComparator<PageConfiguration>
+			orderByComparator);
+
+	/**
+	 * Returns the last page configuration in the ordered set where campaignId = &#63;.
+	 *
+	 * @param campaignId the campaign ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching page configuration
+	 * @throws NoSuchPageConfigurationException if a matching page configuration could not be found
+	 */
+	public PageConfiguration findByCampaignId_Last(
+			long campaignId,
+			com.liferay.portal.kernel.util.OrderByComparator<PageConfiguration>
+				orderByComparator)
+		throws NoSuchPageConfigurationException;
+
+	/**
+	 * Returns the last page configuration in the ordered set where campaignId = &#63;.
+	 *
+	 * @param campaignId the campaign ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching page configuration, or <code>null</code> if a matching page configuration could not be found
+	 */
+	public PageConfiguration fetchByCampaignId_Last(
+		long campaignId,
+		com.liferay.portal.kernel.util.OrderByComparator<PageConfiguration>
+			orderByComparator);
+
+	/**
+	 * Returns the page configurations before and after the current page configuration in the ordered set where campaignId = &#63;.
+	 *
+	 * @param pageConfigurationId the primary key of the current page configuration
+	 * @param campaignId the campaign ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next page configuration
+	 * @throws NoSuchPageConfigurationException if a page configuration with the primary key could not be found
+	 */
+	public PageConfiguration[] findByCampaignId_PrevAndNext(
+			long pageConfigurationId, long campaignId,
+			com.liferay.portal.kernel.util.OrderByComparator<PageConfiguration>
+				orderByComparator)
+		throws NoSuchPageConfigurationException;
+
+	/**
+	 * Removes all the page configurations where campaignId = &#63; from the database.
+	 *
+	 * @param campaignId the campaign ID
+	 */
+	public void removeByCampaignId(long campaignId);
+
+	/**
+	 * Returns the number of page configurations where campaignId = &#63;.
+	 *
+	 * @param campaignId the campaign ID
+	 * @return the number of matching page configurations
+	 */
+	public int countByCampaignId(long campaignId);
+
+	/**
+	 * Returns the page configuration where campaignId = &#63; and stage = &#63; or throws a <code>NoSuchPageConfigurationException</code> if it could not be found.
+	 *
+	 * @param campaignId the campaign ID
+	 * @param stage the stage
+	 * @return the matching page configuration
+	 * @throws NoSuchPageConfigurationException if a matching page configuration could not be found
+	 */
+	public PageConfiguration findByC_S(long campaignId, String stage)
+		throws NoSuchPageConfigurationException;
+
+	/**
+	 * Returns the page configuration where campaignId = &#63; and stage = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param campaignId the campaign ID
+	 * @param stage the stage
+	 * @return the matching page configuration, or <code>null</code> if a matching page configuration could not be found
+	 */
+	public PageConfiguration fetchByC_S(long campaignId, String stage);
+
+	/**
+	 * Returns the page configuration where campaignId = &#63; and stage = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param campaignId the campaign ID
+	 * @param stage the stage
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching page configuration, or <code>null</code> if a matching page configuration could not be found
+	 */
+	public PageConfiguration fetchByC_S(
+		long campaignId, String stage, boolean useFinderCache);
+
+	/**
+	 * Removes the page configuration where campaignId = &#63; and stage = &#63; from the database.
+	 *
+	 * @param campaignId the campaign ID
+	 * @param stage the stage
+	 * @return the page configuration that was removed
+	 */
+	public PageConfiguration removeByC_S(long campaignId, String stage)
+		throws NoSuchPageConfigurationException;
+
+	/**
+	 * Returns the number of page configurations where campaignId = &#63; and stage = &#63;.
+	 *
+	 * @param campaignId the campaign ID
+	 * @param stage the stage
+	 * @return the number of matching page configurations
+	 */
+	public int countByC_S(long campaignId, String stage);
+
+	/**
+	 * Caches the page configuration in the entity cache if it is enabled.
+	 *
+	 * @param pageConfiguration the page configuration
+	 */
+	public void cacheResult(PageConfiguration pageConfiguration);
+
+	/**
+	 * Caches the page configurations in the entity cache if it is enabled.
+	 *
+	 * @param pageConfigurations the page configurations
+	 */
+	public void cacheResult(
+		java.util.List<PageConfiguration> pageConfigurations);
+
+	/**
+	 * Creates a new page configuration with the primary key. Does not add the page configuration to the database.
+	 *
+	 * @param pageConfigurationId the primary key for the new page configuration
+	 * @return the new page configuration
+	 */
+	public PageConfiguration create(long pageConfigurationId);
+
+	/**
+	 * Removes the page configuration with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param pageConfigurationId the primary key of the page configuration
+	 * @return the page configuration that was removed
+	 * @throws NoSuchPageConfigurationException if a page configuration with the primary key could not be found
+	 */
+	public PageConfiguration remove(long pageConfigurationId)
+		throws NoSuchPageConfigurationException;
+
+	public PageConfiguration updateImpl(PageConfiguration pageConfiguration);
+
+	/**
+	 * Returns the page configuration with the primary key or throws a <code>NoSuchPageConfigurationException</code> if it could not be found.
+	 *
+	 * @param pageConfigurationId the primary key of the page configuration
+	 * @return the page configuration
+	 * @throws NoSuchPageConfigurationException if a page configuration with the primary key could not be found
+	 */
+	public PageConfiguration findByPrimaryKey(long pageConfigurationId)
+		throws NoSuchPageConfigurationException;
+
+	/**
+	 * Returns the page configuration with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param pageConfigurationId the primary key of the page configuration
+	 * @return the page configuration, or <code>null</code> if a page configuration with the primary key could not be found
+	 */
+	public PageConfiguration fetchByPrimaryKey(long pageConfigurationId);
+
+	/**
+	 * Returns all the page configurations.
+	 *
+	 * @return the page configurations
+	 */
+	public java.util.List<PageConfiguration> findAll();
+
+	/**
+	 * Returns a range of all the page configurations.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PageConfigurationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param start the lower bound of the range of page configurations
+	 * @param end the upper bound of the range of page configurations (not inclusive)
+	 * @return the range of page configurations
+	 */
+	public java.util.List<PageConfiguration> findAll(int start, int end);
+
+	/**
+	 * Returns an ordered range of all the page configurations.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PageConfigurationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param start the lower bound of the range of page configurations
+	 * @param end the upper bound of the range of page configurations (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of page configurations
+	 */
+	public java.util.List<PageConfiguration> findAll(
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<PageConfiguration>
+			orderByComparator);
+
+	/**
+	 * Returns an ordered range of all the page configurations.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>PageConfigurationModelImpl</code>.
+	 * </p>
+	 *
+	 * @param start the lower bound of the range of page configurations
+	 * @param end the upper bound of the range of page configurations (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of page configurations
+	 */
+	public java.util.List<PageConfiguration> findAll(
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<PageConfiguration>
+			orderByComparator,
+		boolean useFinderCache);
+
+	/**
+	 * Removes all the page configurations from the database.
+	 */
+	public void removeAll();
+
+	/**
+	 * Returns the number of page configurations.
+	 *
+	 * @return the number of page configurations
+	 */
+	public int countAll();
+
+}

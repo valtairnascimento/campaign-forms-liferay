@@ -1,0 +1,2179 @@
+components:
+    schemas:
+        Campaign:
+            description: "Campaign."
+            properties:
+                dateCreated:
+                    format: date-time
+                    readOnly: true
+                    type: string
+                dateModified:
+                    format: date-time
+                    readOnly: true
+                    type: string
+                datePublished:
+                    format: date-time
+                    readOnly: true
+                    type: string
+                defaultLanguageId:
+                    type: string
+                description:
+                    maxLength: 4000
+                    type: string
+                endDate:
+                    description: "End of the submission period."
+                    format: date-time
+                    type: string
+                externalReferenceCode:
+                    type: string
+                hasUnpublishedChanges:
+                    description:
+                        "True when the form or the page has unpublished
+                        changes."
+                    readOnly: true
+                    type: boolean
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                instanceKey:
+                    description: "Instance within the series (e.g. `londrina`)."
+                    type: string
+                mode:
+                    enum: [QUICK, CUSTOM_PAGE]
+                    type: string
+                name:
+                    maxLength: 150
+                    type: string
+                permissions:
+                    additionalProperties:
+                        type: object
+                    description:
+                        "What the current user can do with the campaign, per
+                        action: `UPDATE`, `DELETE`, `PUBLISH`, `VIEW_SUBMISSIONS`,
+                        `DELETE_SUBMISSIONS`, `EXPORT_SUBMISSIONS`,
+                        `MANAGE_NOTIFICATIONS`, `MANAGE_INTEGRATIONS`. Only a
+                        hint for the UI: the server always checks again."
+                    readOnly: true
+                    type: object
+                retentionDays:
+                    format: int32
+                    type: integer
+                seriesKey:
+                    description:
+                        "Groups campaigns of the same series in BI reports (e.g.
+                        `hr-summit`)."
+                    type: string
+                settings:
+                    additionalProperties:
+                        type: object
+                    description:
+                        "Free-form settings: `attributes` (e.g. `city`,
+                        used in `${campaign.city}`), `closedMessage`,
+                        `limitReachedMessage`."
+                    type: object
+                siteId:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                slug:
+                    description: "Unique within the site; `^[a-z0-9]+(-[a-z0-9]+)*$`."
+                    type: string
+                sourceCampaignId:
+                    description: "Source campaign, when this one was duplicated."
+                    format: int64
+                    readOnly: true
+                    type: integer
+                startDate:
+                    format: date-time
+                    type: string
+                status:
+                    enum: [DRAFT, PUBLISHED, ARCHIVED]
+                    readOnly: true
+                    type: string
+                submissionLimit:
+                    description: "0 = no limit."
+                    format: int32
+                    type: integer
+                submissionsCount:
+                    format: int64
+                    readOnly: true
+                    type: integer
+            required:
+                - name
+                - slug
+            type: object
+        BlockType:
+            description:
+                "Page block type, with the configuration of a new block
+                already set for the campaign context (name and language)."
+            properties:
+                defaultConfiguration:
+                    additionalProperties:
+                        type: object
+                    readOnly: true
+                    type: object
+                description:
+                    readOnly: true
+                    type: string
+                key:
+                    readOnly: true
+                    type: string
+                label:
+                    readOnly: true
+                    type: string
+                schemaVersion:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                singleton:
+                    description: "Only one block of this type per page (FORM)."
+                    readOnly: true
+                    type: boolean
+            type: object
+        DataFeed:
+            description:
+                "Read-only URL for Power BI (Get Data › Web). The token is
+                shown only on creation and when a new one is generated; after
+                that, only its last characters (tokenHint)."
+            properties:
+                active:
+                    readOnly: true
+                    type: boolean
+                dateCreated:
+                    format: date-time
+                    readOnly: true
+                    type: string
+                expirationDate:
+                    format: date-time
+                    type: string
+                format:
+                    enum: [CSV, JSON]
+                    type: string
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                includeMetadata:
+                    type: boolean
+                lastAccessDate:
+                    format: date-time
+                    readOnly: true
+                    type: string
+                name:
+                    type: string
+                scope:
+                    description:
+                        "CAMPAIGN: this campaign only. SERIES: all campaigns
+                        in the series (seriesKey) on the same site."
+                    enum: [CAMPAIGN, SERIES]
+                    type: string
+                seriesKey:
+                    readOnly: true
+                    type: string
+                token:
+                    description: "Only on creation and when a new token is generated."
+                    readOnly: true
+                    type: string
+                tokenHint:
+                    readOnly: true
+                    type: string
+                url:
+                    description:
+                        "URL for Power BI; includes the token only on creation and
+                        when a new one is generated."
+                    readOnly: true
+                    type: string
+            type: object
+        DuplicationRequest:
+            description:
+                "What changes in the copy and what gets copied. Submissions are
+                never copied."
+            properties:
+                attributes:
+                    additionalProperties:
+                        type: string
+                    description: "Attributes to override (e.g. `city`)."
+                    type: object
+                copyFields:
+                    default: true
+                    type: boolean
+                copyIntegrationSecrets:
+                    default: false
+                    type: boolean
+                copyIntegrations:
+                    default: false
+                    type: boolean
+                copyNotifications:
+                    default: true
+                    type: boolean
+                copyPage:
+                    default: true
+                    type: boolean
+                copySeo:
+                    default: true
+                    type: boolean
+                copySettings:
+                    default: true
+                    type: boolean
+                endDate:
+                    format: date-time
+                    type: string
+                instanceKey:
+                    type: string
+                name:
+                    description: "Empty = same name as the source."
+                    type: string
+                recipients:
+                    description:
+                        "New recipients for the notifications that have fixed
+                        recipients."
+                    type: string
+                slug:
+                    type: string
+                startDate:
+                    format: date-time
+                    type: string
+                subjectTemplate:
+                    description: "New subject for the same notifications."
+                    type: string
+                targetSiteId:
+                    description: "Target site; empty = same as the source."
+                    format: int64
+                    type: integer
+            required:
+                - slug
+            type: object
+        EventDelivery:
+            description:
+                "Delivery of a notification (or integration) for a submission:
+                whether it went out, how many attempts and the last error."
+            properties:
+                attempts:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                dateCreated:
+                    format: date-time
+                    readOnly: true
+                    type: string
+                dateModified:
+                    format: date-time
+                    readOnly: true
+                    type: string
+                eventType:
+                    readOnly: true
+                    type: string
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                lastErrorCode:
+                    readOnly: true
+                    type: string
+                lastErrorMessage:
+                    readOnly: true
+                    type: string
+                status:
+                    description: "PENDING, PROCESSING, SUCCESS, FAILED or DEAD."
+                    readOnly: true
+                    type: string
+                targetName:
+                    readOnly: true
+                    type: string
+                targetType:
+                    description: "NOTIFICATION or INTEGRATION."
+                    readOnly: true
+                    type: string
+            type: object
+        FieldOption:
+            properties:
+                label:
+                    type: string
+                value:
+                    type: string
+            type: object
+        FieldPreset:
+            description: "Ready-made field template (Name, Email, State...)."
+            properties:
+                formField:
+                    $ref: "#/components/schemas/FormField"
+                key:
+                    readOnly: true
+                    type: string
+                label:
+                    readOnly: true
+                    type: string
+            type: object
+        FieldType:
+            properties:
+                key:
+                    readOnly: true
+                    type: string
+                multiValued:
+                    readOnly: true
+                    type: boolean
+                optionBased:
+                    readOnly: true
+                    type: boolean
+                valueType:
+                    enum: [STRING, TEXT, NUMBER, DATE, DATETIME, BOOLEAN]
+                    readOnly: true
+                    type: string
+            type: object
+        FormField:
+            properties:
+                conditionalRule:
+                    additionalProperties:
+                        type: object
+                    description: "Reserved for future use."
+                    type: object
+                defaultValue:
+                    type: string
+                fieldKey:
+                    description:
+                        "Field identity across versions and column name in BI
+                        exports; `^[a-z][a-zA-Z0-9_]*$`."
+                    type: string
+                fieldOptions:
+                    items:
+                        $ref: "#/components/schemas/FieldOption"
+                    type: array
+                helpText:
+                    type: string
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                label:
+                    type: string
+                personalData:
+                    description: "Erased when submissions are anonymized."
+                    type: boolean
+                placeholder:
+                    type: string
+                position:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                presetKey:
+                    type: string
+                properties:
+                    additionalProperties:
+                        type: object
+                    type: object
+                required:
+                    type: boolean
+                type:
+                    description: "One of the `key` values from GET /field-types."
+                    type: string
+                validation:
+                    additionalProperties:
+                        type: object
+                    type: object
+                width:
+                    enum: [FULL, HALF, THIRD]
+                    type: string
+            required:
+                - fieldKey
+                - label
+                - type
+            type: object
+        FormVersion:
+            description:
+                "Form version. Only the draft (`DRAFT`) can be
+                modified."
+            properties:
+                captchaEnabled:
+                    type: boolean
+                consentRequired:
+                    description: "Whether the form asks for privacy consent before submitting."
+                    type: boolean
+                consentText:
+                    description: "Consent text; when empty, the default text is used."
+                    type: string
+                consentURL:
+                    description:
+                        "Link to the privacy policy shown next to the consent
+                        checkbox (https://... or a portal path). Optional."
+                    type: string
+                consentVersion:
+                    description: "Consent version; when empty, one is derived from the text and the link."
+                    type: string
+                datePublished:
+                    format: date-time
+                    readOnly: true
+                    type: string
+                formFields:
+                    items:
+                        $ref: "#/components/schemas/FormField"
+                    readOnly: true
+                    type: array
+                formId:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                redirectUrl:
+                    type: string
+                requireAuthentication:
+                    type: boolean
+                settings:
+                    additionalProperties:
+                        type: object
+                    type: object
+                status:
+                    enum: [DRAFT, PUBLISHED, SUPERSEDED]
+                    readOnly: true
+                    type: string
+                submitLabel:
+                    type: string
+                successMessage:
+                    type: string
+                successTitle:
+                    type: string
+                version:
+                    format: int32
+                    readOnly: true
+                    type: integer
+            type: object
+        Integration:
+            properties:
+                enabled:
+                    type: boolean
+                eventTypes:
+                    items:
+                        enum:
+                            [SUBMISSION_CREATED, SUBMISSION_UPDATED,
+                            CAMPAIGN_LIMIT_REACHED]
+                        type: string
+                    type: array
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                name:
+                    type: string
+                providerKey:
+                    type: string
+                settings:
+                    additionalProperties:
+                        type: object
+                    description: "Provider configuration, without secrets."
+                    type: object
+            required:
+                - name
+                - providerKey
+            type: object
+        Notification:
+            properties:
+                bcc:
+                    type: string
+                bodyTemplate:
+                    type: string
+                cc:
+                    type: string
+                channel:
+                    enum: [EMAIL]
+                    type: string
+                enabled:
+                    type: boolean
+                eventType:
+                    enum:
+                        [SUBMISSION_CREATED, SUBMISSION_UPDATED,
+                        CAMPAIGN_LIMIT_REACHED]
+                    type: string
+                fromName:
+                    type: string
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                name:
+                    type: string
+                recipients:
+                    description:
+                        "Comma-separated email addresses, or
+                        `${submission.<email field>}`."
+                    type: string
+                replyTo:
+                    type: string
+                settings:
+                    additionalProperties:
+                        type: object
+                    type: object
+                subjectTemplate:
+                    type: string
+            required:
+                - channel
+                - eventType
+                - name
+            type: object
+        NotificationTest:
+            properties:
+                recipient:
+                    description: "Where the sample was sent."
+                    readOnly: true
+                    type: string
+            type: object
+        Order:
+            description: "New order: all IDs, in the desired order."
+            properties:
+                ids:
+                    items:
+                        format: int64
+                        type: integer
+                    type: array
+            required:
+                - ids
+            type: object
+        PageBlock:
+            properties:
+                blockKey:
+                    readOnly: true
+                    type: string
+                blockType:
+                    description: "HERO, TEXT, IMAGE, FORM, CTA, FAQ..."
+                    type: string
+                configuration:
+                    additionalProperties:
+                        type: object
+                    type: object
+                enabled:
+                    type: boolean
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                position:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                schemaVersion:
+                    format: int32
+                    readOnly: true
+                    type: integer
+            type: object
+        PageTemplate:
+            description:
+                "Built-in page template. Applying a template replaces the
+                blocks of the draft."
+            properties:
+                blockTypes:
+                    description: "The template's block types, in order."
+                    items:
+                        type: string
+                    readOnly: true
+                    type: array
+                description:
+                    readOnly: true
+                    type: string
+                key:
+                    readOnly: true
+                    type: string
+                label:
+                    readOnly: true
+                    type: string
+            type: object
+        PageConfiguration:
+            description:
+                "Page draft. The live page changes only when the campaign
+                is published."
+            properties:
+                canonicalUrl:
+                    type: string
+                cssClass:
+                    type: string
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                noIndex:
+                    type: boolean
+                ogDescription:
+                    type: string
+                ogImageFileEntryId:
+                    format: int64
+                    type: integer
+                ogTitle:
+                    type: string
+                pageBlocks:
+                    items:
+                        $ref: "#/components/schemas/PageBlock"
+                    readOnly: true
+                    type: array
+                seoDescription:
+                    type: string
+                seoTitle:
+                    type: string
+                settings:
+                    additionalProperties:
+                        type: object
+                    type: object
+                templateKey:
+                    type: string
+                themeKey:
+                    type: string
+            type: object
+        Position:
+            properties:
+                position:
+                    format: int32
+                    type: integer
+            required:
+                - position
+            type: object
+        PublicationIssue:
+            description: "Something that blocks publishing."
+            properties:
+                code:
+                    readOnly: true
+                    type: string
+                message:
+                    readOnly: true
+                    type: string
+                target:
+                    description: "fieldKey, placeholder or empty."
+                    readOnly: true
+                    type: string
+            type: object
+        Submission:
+            description: "Received submission."
+            properties:
+                campaignId:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                consentDate:
+                    format: date-time
+                    readOnly: true
+                    type: string
+                consentVersion:
+                    readOnly: true
+                    type: string
+                dateCreated:
+                    format: date-time
+                    readOnly: true
+                    type: string
+                formVersion:
+                    format: int32
+                    readOnly: true
+                    type: integer
+                formVersionId:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                languageId:
+                    readOnly: true
+                    type: string
+                referrer:
+                    readOnly: true
+                    type: string
+                sourceUrl:
+                    readOnly: true
+                    type: string
+                status:
+                    readOnly: true
+                    type: string
+                utmCampaign:
+                    readOnly: true
+                    type: string
+                utmContent:
+                    readOnly: true
+                    type: string
+                utmMedium:
+                    readOnly: true
+                    type: string
+                utmSource:
+                    readOnly: true
+                    type: string
+                utmTerm:
+                    readOnly: true
+                    type: string
+                values:
+                    additionalProperties:
+                        type: object
+                    description:
+                        "Typed values by fieldKey: text, number, boolean,
+                        ISO-8601 date, or a list for multiple-choice
+                        fields."
+                    readOnly: true
+                    type: object
+            type: object
+        TemplateSelection:
+            properties:
+                templateKey:
+                    description: "One of the `key` values from GET /page-templates."
+                    type: string
+            required:
+                - templateKey
+            type: object
+info:
+    description:
+        "Campaign Forms administrative API. Requires authentication
+        (session + CSRF, OAuth2 or Basic) and the campaign permissions (VIEW,
+        UPDATE, PUBLISH, MANAGE_NOTIFICATIONS, MANAGE_INTEGRATIONS,
+        VIEW_SUBMISSIONS, DELETE_SUBMISSIONS, EXPORT_SUBMISSIONS). Errors use the format `{code,
+        message, errorId, errors: [{field, code, message}]}`."
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    title: "Campaign Forms Admin"
+    version: v1.0
+openapi: 3.0.1
+paths:
+    "/campaigns/{campaignId}":
+        delete:
+            description:
+                "Deletes a campaign with no submissions (with submissions: 409;
+                archive it instead)."
+            operationId: deleteCampaign
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                204:
+                    description: "Deleted."
+            tags: ["Campaign"]
+        get:
+            operationId: getCampaign
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                    description: "The campaign."
+            tags: ["Campaign"]
+        put:
+            operationId: putCampaign
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Campaign"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Campaign"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                    description: "The updated campaign."
+            tags: ["Campaign"]
+    "/campaigns/{campaignId}/archive":
+        post:
+            description: "PUBLISHED → ARCHIVED. Requires PUBLISH."
+            operationId: postCampaignArchive
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                    description: "The archived campaign."
+            tags: ["Campaign"]
+    "/campaigns/{campaignId}/convert-to-custom-page":
+        post:
+            description:
+                "Quick form → custom page (HERO + FORM blocks in the
+                draft). ID, slug and submissions do not change."
+            operationId: postCampaignConvertToCustomPage
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                    description: "The converted campaign."
+            tags: ["Campaign"]
+    "/campaigns/{campaignId}/data-feeds":
+        get:
+            description: "The campaign's Power BI data feeds. Requires EXPORT_SUBMISSIONS."
+            operationId: getCampaignDataFeedsPage
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/DataFeed"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/DataFeed"
+                                type: array
+                    description: "The data feeds, without the token."
+            tags: ["DataFeed"]
+        post:
+            description:
+                "Creates a Power BI data feed. The response includes the token and
+                the full URL only this once."
+            operationId: postCampaignDataFeed
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/DataFeed"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/DataFeed"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/DataFeed"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/DataFeed"
+                    description: "The created data feed, with the token."
+            tags: ["DataFeed"]
+    "/campaigns/{campaignId}/duplicate":
+        post:
+            description:
+                "Duplicates the campaign (requires VIEW on the source and
+                ADD_CAMPAIGN on the target site)."
+            operationId: postCampaignDuplicate
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/DuplicationRequest"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/DuplicationRequest"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                    description: "The new campaign, as a draft."
+            tags: ["Campaign"]
+    "/campaigns/{campaignId}/block-types":
+        get:
+            description:
+                "Block types available for the campaign page, in the
+                order of the editor palette."
+            operationId: getCampaignBlockTypesPage
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/BlockType"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/BlockType"
+                                type: array
+                    description: "The block types."
+            tags: ["BlockType"]
+    "/campaigns/{campaignId}/form":
+        get:
+            description:
+                "The version being edited: the draft, if any, otherwise the
+                published one."
+            operationId: getCampaignForm
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/FormVersion"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/FormVersion"
+                    description: "The version."
+            tags: ["FormVersion"]
+        put:
+            description:
+                "Updates the texts and options of the draft (opens a draft if
+                needed)."
+            operationId: putCampaignForm
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/FormVersion"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/FormVersion"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/FormVersion"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/FormVersion"
+                    description: "The updated draft."
+            tags: ["FormVersion"]
+    "/campaigns/{campaignId}/form/draft":
+        post:
+            description:
+                "Opens the form draft (a copy of the published version),
+                or returns the existing one."
+            operationId: postCampaignFormDraft
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/FormVersion"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/FormVersion"
+                    description: "The draft."
+            tags: ["FormVersion"]
+    "/campaigns/{campaignId}/form/fields":
+        post:
+            description: "Adds a field to the draft."
+            operationId: postCampaignFormField
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/FormField"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/FormField"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/FormField"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/FormField"
+                    description: "The created field."
+            tags: ["FormField"]
+    "/campaigns/{campaignId}/form/fields/order":
+        put:
+            description: "Reorders the fields of the draft."
+            operationId: putCampaignFormFieldsOrder
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Order"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Order"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/FormField"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/FormField"
+                                type: array
+                    description: "The fields in the new order."
+            tags: ["FormField"]
+    "/campaigns/{campaignId}/form-versions":
+        get:
+            description: "All versions, newest first."
+            operationId: getCampaignFormVersionsPage
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/FormVersion"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/FormVersion"
+                                type: array
+                    description: "The versions."
+            tags: ["FormVersion"]
+    "/campaigns/{campaignId}/integrations":
+        get:
+            operationId: getCampaignIntegrationsPage
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Integration"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Integration"
+                                type: array
+                    description: "The integrations."
+            tags: ["Integration"]
+        post:
+            operationId: postCampaignIntegration
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Integration"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Integration"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Integration"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Integration"
+                    description: "The created integration."
+            tags: ["Integration"]
+    "/campaigns/{campaignId}/notifications":
+        get:
+            operationId: getCampaignNotificationsPage
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Notification"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Notification"
+                                type: array
+                    description: "The notifications."
+            tags: ["Notification"]
+        post:
+            operationId: postCampaignNotification
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Notification"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Notification"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Notification"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Notification"
+                    description: "The created notification."
+            tags: ["Notification"]
+    "/campaigns/{campaignId}/page":
+        get:
+            description: "The page draft, with its blocks."
+            operationId: getCampaignPage
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PageConfiguration"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PageConfiguration"
+                    description: "The page draft."
+            tags: ["PageConfiguration"]
+        put:
+            description: "Updates the theme, SEO and settings of the draft."
+            operationId: putCampaignPage
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PageConfiguration"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PageConfiguration"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PageConfiguration"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PageConfiguration"
+                    description: "The updated draft."
+            tags: ["PageConfiguration"]
+    "/campaigns/{campaignId}/page/apply-template":
+        post:
+            description:
+                "Replaces the blocks of the page draft with the template's. The
+                live page changes only when the campaign is published."
+            operationId: postCampaignPageApplyTemplate
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/TemplateSelection"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/TemplateSelection"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PageConfiguration"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PageConfiguration"
+                    description: "The page with the template's blocks."
+            tags: ["PageConfiguration"]
+    "/campaigns/{campaignId}/page/blocks":
+        post:
+            operationId: postCampaignPageBlock
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PageBlock"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PageBlock"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PageBlock"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PageBlock"
+                    description: "The created block."
+            tags: ["PageBlock"]
+    "/campaigns/{campaignId}/page/blocks/order":
+        put:
+            operationId: putCampaignPageBlocksOrder
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Order"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Order"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PageBlock"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PageBlock"
+                                type: array
+                    description: "The blocks in the new order."
+            tags: ["PageBlock"]
+    "/campaigns/{campaignId}/publication-issues":
+        get:
+            description: "What currently blocks publishing. Empty = ready to publish."
+            operationId: getCampaignPublicationIssuesPage
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PublicationIssue"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PublicationIssue"
+                                type: array
+                    description: "The issues."
+            tags: ["PublicationIssue"]
+    "/campaigns/{campaignId}/publish":
+        post:
+            description:
+                "Validates and publishes the form and page drafts. If there
+                are issues: 409 PUBLICATION_BLOCKED with the list in `errors`."
+            operationId: postCampaignPublish
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                    description: "The published campaign."
+            tags: ["Campaign"]
+    "/campaigns/{campaignId}/reopen":
+        post:
+            description: "ARCHIVED → PUBLISHED. Requires PUBLISH."
+            operationId: postCampaignReopen
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                    description: "The reopened campaign."
+            tags: ["Campaign"]
+    "/campaigns/{campaignId}/submissions":
+        get:
+            description: "Submissions, newest first."
+            operationId: getCampaignSubmissionsPage
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Submission"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Submission"
+                                type: array
+                    description: "The submissions."
+            tags: ["Submission"]
+    "/campaigns/{campaignId}/submissions/export":
+        get:
+            description:
+                "All submissions in a single file: UTF-8 CSV with BOM (Excel),
+                JSON or an Excel spreadsheet (xlsx: visible fields only, with
+                labels and option texts). One column per field (the union of
+                all versions); requires EXPORT_SUBMISSIONS and is recorded in
+                the audit log."
+            operationId: getCampaignSubmissionsExport
+            parameters:
+                - in: path
+                  name: campaignId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+                - in: query
+                  name: format
+                  schema:
+                      enum: [csv, json, xlsx]
+                      type: string
+                - in: query
+                  name: labels
+                  schema:
+                      type: boolean
+                - in: query
+                  name: includeMetadata
+                  schema:
+                      type: boolean
+                - in: query
+                  name: separator
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/octet-stream:
+                            schema:
+                                format: binary
+                                type: string
+                    description: "The file."
+            tags: ["Submission"]
+    "/data-feeds/{dataFeedId}":
+        delete:
+            description: "Revokes the data feed: its URL stops working immediately."
+            operationId: deleteDataFeed
+            parameters:
+                - in: path
+                  name: dataFeedId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                204:
+                    description: "Revoked."
+            tags: ["DataFeed"]
+    "/data-feeds/{dataFeedId}/regenerate-token":
+        post:
+            description:
+                "Generates a new token; the previous URL stops working. The
+                response includes the token and the full URL only this once."
+            operationId: postDataFeedRegenerateToken
+            parameters:
+                - in: path
+                  name: dataFeedId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/DataFeed"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/DataFeed"
+                    description: "The data feed with the new token."
+            tags: ["DataFeed"]
+    "/field-presets":
+        get:
+            operationId: getFieldPresetsPage
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/FieldPreset"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/FieldPreset"
+                                type: array
+                    description: "The field presets."
+            tags: ["FieldPreset"]
+    "/field-types":
+        get:
+            operationId: getFieldTypesPage
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/FieldType"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/FieldType"
+                                type: array
+                    description: "The registered field types."
+            tags: ["FieldType"]
+    "/form-fields/{formFieldId}":
+        delete:
+            operationId: deleteFormField
+            parameters:
+                - in: path
+                  name: formFieldId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                204:
+                    description: "Deleted."
+            tags: ["FormField"]
+        get:
+            operationId: getFormField
+            parameters:
+                - in: path
+                  name: formFieldId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/FormField"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/FormField"
+                    description: "The field."
+            tags: ["FormField"]
+        put:
+            description:
+                "Updates a draft field (a field of a published version: 409
+                VERSION_LOCKED)."
+            operationId: putFormField
+            parameters:
+                - in: path
+                  name: formFieldId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/FormField"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/FormField"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/FormField"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/FormField"
+                    description: "The updated field."
+            tags: ["FormField"]
+    "/form-fields/{formFieldId}/position":
+        put:
+            operationId: putFormFieldPosition
+            parameters:
+                - in: path
+                  name: formFieldId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Position"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Position"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/FormField"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/FormField"
+                                type: array
+                    description: "The fields in the new order."
+            tags: ["FormField"]
+    "/form-versions/{formVersionId}":
+        get:
+            operationId: getFormVersion
+            parameters:
+                - in: path
+                  name: formVersionId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/FormVersion"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/FormVersion"
+                    description: "The version, with its fields."
+            tags: ["FormVersion"]
+    "/integrations/{integrationId}":
+        delete:
+            operationId: deleteIntegration
+            parameters:
+                - in: path
+                  name: integrationId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                204:
+                    description: "Deleted."
+            tags: ["Integration"]
+        get:
+            operationId: getIntegration
+            parameters:
+                - in: path
+                  name: integrationId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Integration"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Integration"
+                    description: "The integration."
+            tags: ["Integration"]
+        put:
+            operationId: putIntegration
+            parameters:
+                - in: path
+                  name: integrationId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Integration"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Integration"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Integration"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Integration"
+                    description: "The updated integration."
+            tags: ["Integration"]
+    "/notifications/{notificationId}":
+        delete:
+            operationId: deleteNotification
+            parameters:
+                - in: path
+                  name: notificationId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                204:
+                    description: "Deleted."
+            tags: ["Notification"]
+        get:
+            operationId: getNotification
+            parameters:
+                - in: path
+                  name: notificationId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Notification"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Notification"
+                    description: "The notification."
+            tags: ["Notification"]
+        put:
+            operationId: putNotification
+            parameters:
+                - in: path
+                  name: notificationId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Notification"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Notification"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Notification"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Notification"
+                    description: "The updated notification."
+            tags: ["Notification"]
+    "/notifications/{notificationId}/test":
+        post:
+            description:
+                "Sends a sample with dummy responses only to the signed-in
+                user (at their portal email address)."
+            operationId: postNotificationTest
+            parameters:
+                - in: path
+                  name: notificationId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/NotificationTest"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/NotificationTest"
+                    description: "Where it was sent."
+            tags: ["NotificationTest"]
+    "/page-blocks/{pageBlockId}":
+        delete:
+            operationId: deletePageBlock
+            parameters:
+                - in: path
+                  name: pageBlockId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                204:
+                    description: "Deleted."
+            tags: ["PageBlock"]
+        get:
+            operationId: getPageBlock
+            parameters:
+                - in: path
+                  name: pageBlockId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PageBlock"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PageBlock"
+                    description: "The block."
+            tags: ["PageBlock"]
+        put:
+            description: "Updates the block's configuration and enabled state."
+            operationId: putPageBlock
+            parameters:
+                - in: path
+                  name: pageBlockId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/PageBlock"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/PageBlock"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PageBlock"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PageBlock"
+                    description: "The updated block."
+            tags: ["PageBlock"]
+    "/page-blocks/{pageBlockId}/duplicate":
+        post:
+            operationId: postPageBlockDuplicate
+            parameters:
+                - in: path
+                  name: pageBlockId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/PageBlock"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/PageBlock"
+                    description: "The copy, placed right after the original."
+            tags: ["PageBlock"]
+    "/page-blocks/{pageBlockId}/position":
+        put:
+            operationId: putPageBlockPosition
+            parameters:
+                - in: path
+                  name: pageBlockId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Position"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Position"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PageBlock"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PageBlock"
+                                type: array
+                    description: "The blocks in the new order."
+            tags: ["PageBlock"]
+    "/page-templates":
+        get:
+            operationId: getPageTemplatesPage
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PageTemplate"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/PageTemplate"
+                                type: array
+                    description: "The built-in page templates."
+            tags: ["PageTemplate"]
+    "/sites/{siteId}/campaigns":
+        get:
+            description:
+                "Campaigns of the site that the user can view, most recently
+                modified first."
+            operationId: getSiteCampaignsPage
+            parameters:
+                - in: path
+                  name: siteId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+                - in: query
+                  name: page
+                  schema:
+                      type: integer
+                - in: query
+                  name: pageSize
+                  schema:
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Campaign"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/Campaign"
+                                type: array
+                    description: "The campaigns."
+            tags: ["Campaign"]
+        post:
+            description:
+                "Creates the campaign as a draft, with a form and a page.
+                Requires ADD_CAMPAIGN on the site."
+            operationId: postSiteCampaign
+            parameters:
+                - in: path
+                  name: siteId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Campaign"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Campaign"
+                required: true
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                    description: "The created campaign."
+            tags: ["Campaign"]
+    "/sites/{siteId}/campaigns/by-external-reference-code/{externalReferenceCode}":
+        get:
+            operationId: getSiteCampaignByExternalReferenceCode
+            parameters:
+                - in: path
+                  name: siteId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+                - in: path
+                  name: externalReferenceCode
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Campaign"
+                    description: "The campaign."
+            tags: ["Campaign"]
+    "/submissions/{submissionId}":
+        delete:
+            description: "Deletes the submission (requires DELETE_SUBMISSIONS; audited)."
+            operationId: deleteSubmission
+            parameters:
+                - in: path
+                  name: submissionId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                204:
+                    description: "Deleted."
+            tags: ["Submission"]
+        get:
+            operationId: getSubmission
+            parameters:
+                - in: path
+                  name: submissionId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Submission"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Submission"
+                    description: "The submission."
+            tags: ["Submission"]
+    "/submissions/{submissionId}/event-deliveries":
+        get:
+            description:
+                "Whether the notifications of the submission went out. Requires
+                VIEW_SUBMISSIONS."
+            operationId: getSubmissionEventDeliveriesPage
+            parameters:
+                - in: path
+                  name: submissionId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/EventDelivery"
+                                type: array
+                        application/xml:
+                            schema:
+                                items:
+                                    $ref: "#/components/schemas/EventDelivery"
+                                type: array
+                    description: "The deliveries."
+            tags: ["EventDelivery"]

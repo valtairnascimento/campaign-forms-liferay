@@ -1,0 +1,11 @@
+dependencies {
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+	compileOnly project(":modules:campaign-forms:campaign-forms-api")
+	compileOnly project(":modules:campaign-forms:campaign-forms-headless-delivery-api")
+
+	restBuilder group: "com.liferay", name: "com.liferay.portal.tools.rest.builder", version: "1.0.293"
+}
+
+configurations.restBuilder {
+	resolutionStrategy.force "com.liferay:com.liferay.portal.tools.rest.builder:1.0.293"
+}

@@ -1,0 +1,10 @@
+apiDir: "../campaign-forms-headless-delivery-api/src/main/java"
+apiPackagePath: "io.github.valtairnascimento.campaignforms.headless.delivery"
+application:
+    baseURI: "/campaign-forms"
+    className: "CampaignFormsDeliveryApplication"
+    name: "CampaignForms.Delivery"
+author: "Valtair Nascimento"
+generateGraphQL: false
+compatibilityVersion: 2
+generateBatch: false

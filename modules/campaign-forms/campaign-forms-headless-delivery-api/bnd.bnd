@@ -1,0 +1,6 @@
+Bundle-Name: Campaign Forms Headless Delivery API
+Bundle-SymbolicName: io.github.valtairnascimento.campaignforms.headless.delivery.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	io.github.valtairnascimento.campaignforms.headless.delivery.dto.v1_0,\
+	io.github.valtairnascimento.campaignforms.headless.delivery.resource.v1_0
